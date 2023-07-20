@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Example application</title>
+  </head>
+  <style>
+    fieldset {
+      margin: 0 0 20px;
+      padding: 20px 15px;
+      border: 1px solid #ae63e4;
+    }
+  </style>
+  <body>
+<!-- BEGIN (write your solution here) -->
+    <form name="add_course" action="/courses" method="POST">
+    <fieldset>
+    <legend>Данные о курсе</legend>
+    <div>
+      <label>
+        Название курса
+        <input type="text" name="title" placeholder="Введите название курса">
+      </label>
+    </div>
+    <br>
+    <div>
+      <label>
+        Платный курс
+        <!-- <input type="checkbox" name="paid"> -->
+        <input type="text" name="paid" placeholder="Укажите платный или нет">
+      </label>
+    </div>
+    </fieldset>
+    <input type="submit" value="Sign Up">
+    </form>
+
+<!-- END -->
+  </body>
+</html>
