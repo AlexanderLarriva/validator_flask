@@ -12,29 +12,31 @@
   </style>
   <body>
 <!-- BEGIN (write your solution here) -->
-    <form name="add_course" action="/courses" method="POST">
-    <fieldset>
-    <legend>Данные о курсе</legend>
-    <div>
-      <label>
-        Название курса
-        <input type="text" name="title" placeholder="Введите название курса">
-      </label>
-    </div>
-    <br>
-    <div>
-      <label>
-        Выберите платность курса:
-        <select name="paid-menu">
-          <option value="True">Платный</option>
-          <option value="False">Бесплатный</option>
+<form action="/courses" method="post">
+  <div>
+    <label>
+          Title *
+        <input type="text" name="title" value="{{ course.title }}">
+        </label>
+    {% if errors['title'] %}
+    <div>{{ errors['title'] }}</div>
+    {% endif %}
+  </div>
+  <div>
+    <label>
+        Paid *
+        <select name="paid">
+          <option value="">Select</option>
+          <option {{ 'selected' if course.paid =='1' else '' }} value="1">Paid</option>
+          <option {{ 'selected' if course.paid =='0' else '' }} value="0">Free</option>
         </select>
-      </label>
-    </div>
-    </fieldset>
-    <input type="submit" value="Sign Up">
-    </form>
-
+        </label>
+    {% if errors['paid'] %}
+    <div>{{ errors['paid'] }}</div>
+    {% endif %}
+  </div>
+  <input type="submit" value="Create">
+</form>
 <!-- END -->
   </body>
 </html>

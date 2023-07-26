@@ -24,6 +24,7 @@ def index():
 @app.get('/courses')
 def courses_get():
     courses = repo.content()
+    print(courses)
     return render_template(
         'courses/index.html',
         courses=courses,
@@ -31,22 +32,28 @@ def courses_get():
 
 
 # BEGIN (write your solution here)
-@app.route('/courses/new', methods=['GET', 'POST'])
-def show_form():
-    if request.method == 'POST':
-        title = request.form.get('title')
-        paid = request.form.get('paid')
-        course_data = {'title': title, 'paid': paid}
-        errors = validate(course_data)
-        if errors:
-            return render_template(
-                'courses/new.html',
-                course_data=course_data,
-                errors=errors,
-            ), 422  # Код ответа 422 для ошибки валидации
-        repo.save(course_data)
-        return redirect('/courses')  # Редирект при успешном сохранении курса
-    
-    return render_template('courses/new.html')
+@app.post('/courses')
+def courses_post():
+    course = request.form.to_dict()
+    errors = validate(course)
+    if errors:
+        return render_template(
+            'courses/new.html',
+            course=course,
+            errors=errors,
+        ), 422
 
+    repo.save(course)
+    return redirect('/courses', 302)
+
+
+@app.route('/courses/new')
+def courses_new():
+    course = {'title': '', 'paid': ''}
+    errors = {}
+    return render_template(
+        'courses/new.html',
+        course=course,
+        errors=errors,
+        )
 # END
